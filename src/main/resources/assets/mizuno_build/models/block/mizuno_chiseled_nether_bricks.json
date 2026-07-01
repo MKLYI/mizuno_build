@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/chiseled_nether_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

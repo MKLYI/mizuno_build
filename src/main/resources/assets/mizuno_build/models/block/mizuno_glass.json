@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/glass"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

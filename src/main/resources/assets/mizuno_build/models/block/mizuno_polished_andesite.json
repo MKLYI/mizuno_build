@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/polished_andesite"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

@@ -1,0 +1,8 @@
+{
+    "textures":  {
+                     "bottom":  "mizuno_build:block/quartz_block_bottom",
+                     "top":  "mizuno_build:block/quartz_block_top",
+                     "side":  "mizuno_build:block/quartz_block_side"
+                 },
+    "parent":  "minecraft:block/cube_bottom_top"
+}

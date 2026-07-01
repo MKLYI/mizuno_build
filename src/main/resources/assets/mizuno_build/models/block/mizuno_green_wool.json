@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/green_wool"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

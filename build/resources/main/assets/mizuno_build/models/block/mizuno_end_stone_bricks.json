@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/end_stone_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

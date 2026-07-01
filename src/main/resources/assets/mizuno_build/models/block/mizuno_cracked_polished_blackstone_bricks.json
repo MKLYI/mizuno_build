@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/cracked_polished_blackstone_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

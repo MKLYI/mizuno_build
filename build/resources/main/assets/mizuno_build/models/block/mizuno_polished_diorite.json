@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/polished_diorite"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

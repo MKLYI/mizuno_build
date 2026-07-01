@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/copper_block"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

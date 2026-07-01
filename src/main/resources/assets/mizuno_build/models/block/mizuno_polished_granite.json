@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/polished_granite"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

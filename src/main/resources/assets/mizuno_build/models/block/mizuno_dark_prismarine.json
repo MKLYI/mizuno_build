@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/dark_prismarine"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

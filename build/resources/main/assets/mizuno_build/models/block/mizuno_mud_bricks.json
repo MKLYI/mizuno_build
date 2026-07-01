@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/mud_bricks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

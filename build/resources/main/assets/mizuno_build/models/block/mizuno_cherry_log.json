@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "mizuno_build:block/cherry_log_top",
+                     "side":  "mizuno_build:block/cherry_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/cracked_deepslate_tiles"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

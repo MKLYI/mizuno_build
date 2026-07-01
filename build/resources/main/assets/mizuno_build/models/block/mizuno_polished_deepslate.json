@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/polished_deepslate"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

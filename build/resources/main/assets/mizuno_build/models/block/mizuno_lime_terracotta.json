@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/lime_terracotta"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

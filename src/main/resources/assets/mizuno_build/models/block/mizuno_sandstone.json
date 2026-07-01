@@ -1,0 +1,8 @@
+{
+    "textures":  {
+                     "bottom":  "mizuno_build:block/sandstone_bottom",
+                     "top":  "mizuno_build:block/sandstone_top",
+                     "side":  "mizuno_build:block/sandstone"
+                 },
+    "parent":  "minecraft:block/cube_bottom_top"
+}

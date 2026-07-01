@@ -1,0 +1,16 @@
+{
+    "variants":  {
+                     "axis=y":  {
+                                    "model":  "mizuno_build:block/mizuno_chiseled_sandstone"
+                                },
+                     "axis=x":  {
+                                    "y":  90,
+                                    "model":  "mizuno_build:block/mizuno_chiseled_sandstone",
+                                    "x":  90
+                                },
+                     "axis=z":  {
+                                    "model":  "mizuno_build:block/mizuno_chiseled_sandstone",
+                                    "x":  90
+                                }
+                 }
+}

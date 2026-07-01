@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "mizuno_build:block/deepslate_top",
+                     "side":  "mizuno_build:block/deepslate"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

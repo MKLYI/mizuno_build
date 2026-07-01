@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/warped_planks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/blue_concrete"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

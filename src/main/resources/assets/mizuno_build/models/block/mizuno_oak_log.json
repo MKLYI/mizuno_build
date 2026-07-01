@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "mizuno_build:block/oak_log_top",
+                     "side":  "mizuno_build:block/oak_log"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

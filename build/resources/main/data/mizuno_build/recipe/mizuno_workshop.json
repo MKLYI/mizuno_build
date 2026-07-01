@@ -1,0 +1,17 @@
+{
+    "key":  {
+                "C":  "minecraft:stonecutter",
+                "S":  "minecraft:stone",
+                "I":  "minecraft:iron_ingot"
+            },
+    "category":  "decorations",
+    "pattern":  [
+                    " I ",
+                    "SCS",
+                    "SSS"
+                ],
+    "result":  {
+                   "id":  "mizuno_build:mizuno_workshop"
+               },
+    "type":  "minecraft:crafting_shaped"
+}

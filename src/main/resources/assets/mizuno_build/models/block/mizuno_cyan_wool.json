@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/cyan_wool"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

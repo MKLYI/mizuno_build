@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/chiseled_polished_blackstone"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

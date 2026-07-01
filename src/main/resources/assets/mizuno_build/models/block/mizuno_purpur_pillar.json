@@ -1,0 +1,7 @@
+{
+    "textures":  {
+                     "end":  "mizuno_build:block/purpur_pillar_top",
+                     "side":  "mizuno_build:block/purpur_pillar"
+                 },
+    "parent":  "minecraft:block/cube_column"
+}

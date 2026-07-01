@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/lime_stained_glass"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

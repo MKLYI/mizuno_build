@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/pink_terracotta"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

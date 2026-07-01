@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/bamboo_planks"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}

@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "all":  "mizuno_build:block/mossy_cobblestone"
+                 },
+    "parent":  "minecraft:block/cube_all"
+}
