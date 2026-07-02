@@ -178,13 +178,16 @@ $loot = {
 }
 
 Write-Utf8NoBom (Join-Path $dataRoot 'recipe/mizuno_element.json') (To-JsonText @{
-    type = 'minecraft:crafting_shapeless'
+    type = 'minecraft:crafting_shaped'
     category = 'misc'
-    ingredients = @(
-        @{ item = 'minecraft:cobblestone' },
-        @{ item = 'minecraft:cobblestone' }
+    pattern = @(
+        'C',
+        'C'
     )
-    result = @{ count = 1; id = 'mizuno_build:mizuno_element' }
+    key = @{
+        C = @{ item = 'minecraft:cobblestone' }
+    }
+    result = @{ count = 2; id = 'mizuno_build:mizuno_element' }
 })
 
 foreach ($block in $blocks) {

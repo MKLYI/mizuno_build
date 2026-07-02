@@ -1,16 +1,17 @@
 {
-    "ingredients":  [
-                        {
-                            "item":  "minecraft:cobblestone"
-                        },
-                        {
-                            "item":  "minecraft:cobblestone"
-                        }
-                    ],
+    "key":  {
+                "C":  {
+                          "item":  "minecraft:cobblestone"
+                      }
+            },
     "category":  "misc",
+    "pattern":  [
+                    "C",
+                    "C"
+                ],
     "result":  {
-                   "count":  1,
+                   "count":  2,
                    "id":  "mizuno_build:mizuno_element"
                },
-    "type":  "minecraft:crafting_shapeless"
+    "type":  "minecraft:crafting_shaped"
 }

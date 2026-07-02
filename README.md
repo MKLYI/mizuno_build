@@ -2,7 +2,7 @@
 
 `Mizuno Build` 是一个面向 Minecraft `1.21.1` 的 NeoForge 模组，mod id 为 `mizuno_build`。它把 Mizuno 风格的建筑材质注册为独立方块，让原版方块和 Mizuno 方块可以在同一个世界中并存。
 
-当前实现包含 `158` 个 Mizuno 建筑方块。玩家先用两个圆石合成 `Mizuno 元素`，再用 `原版方块 + Mizuno 元素` 无序合成对应的 Mizuno 方块。
+当前实现包含 `158` 个 Mizuno 建筑方块。玩家先用两个圆石竖排合成 `2` 个 `Mizuno 元素`，再用 `原版方块 + Mizuno 元素` 无序合成对应的 Mizuno 方块。
 
 ## 前提条件
 
@@ -42,12 +42,12 @@ cd D:\game\文件\mizuno_workshop
 构建成功后，jar 位于：
 
 ```text
-build\libs\mizuno_build-0.1.0.jar
+build\libs\mizuno_build-0.1.1.jar
 ```
 
 建议在 NeoForge 客户端中检查：
 
-- 两个圆石能合成 `Mizuno 元素`。
+- 两个圆石竖排能合成 `2` 个 `Mizuno 元素`。
 - 原版方块和 `Mizuno 元素` 能合成对应 Mizuno 方块。
 - 原木、石英柱等柱状方块放置方向正确。
 - 玻璃和染色玻璃透明渲染正确。
