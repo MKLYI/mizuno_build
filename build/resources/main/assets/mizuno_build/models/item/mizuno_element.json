@@ -1,0 +1,6 @@
+{
+    "textures":  {
+                     "layer0":  "mizuno_build:item/mizuno_element"
+                 },
+    "parent":  "minecraft:item/generated"
+}

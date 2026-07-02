@@ -1,0 +1,16 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:black_wool"
+                        },
+                        {
+                            "item":  "mizuno_build:mizuno_element"
+                        }
+                    ],
+    "category":  "building",
+    "result":  {
+                   "count":  1,
+                   "id":  "mizuno_build:mizuno_black_wool"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

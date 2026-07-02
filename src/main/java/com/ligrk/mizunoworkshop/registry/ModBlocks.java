@@ -1,12 +1,9 @@
 package com.ligrk.mizunoworkshop.registry;
 
 import com.ligrk.mizunoworkshop.MizunoWorkshop;
-import com.ligrk.mizunoworkshop.block.MizunoWorkshopBlock;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -20,17 +17,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MizunoWorkshop.MOD_ID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MizunoWorkshop.MOD_ID);
 
-    public static final DeferredBlock<MizunoWorkshopBlock> MIZUNO_WORKSHOP = BLOCKS.register(
-            "mizuno_workshop",
-            () -> new MizunoWorkshopBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONECUTTER))
-    );
-
-    public static final DeferredItem<BlockItem> MIZUNO_WORKSHOP_ITEM = blockItem("mizuno_workshop", MIZUNO_WORKSHOP);
-
-    public static final Map<Block, Supplier<? extends Block>> CONVERSIONS = new LinkedHashMap<>();
-    private static final List<ConvertedBlock> CONVERTED_BLOCKS = new ArrayList<>();
+    private static final List<MizunoBlockEntry> MIZUNO_BLOCKS = new ArrayList<>();
 
     public static final DeferredBlock<Block> MIZUNO_STONE = converted("mizuno_stone", Blocks.STONE);
     public static final DeferredBlock<Block> MIZUNO_GRANITE = converted("mizuno_granite", Blocks.GRANITE);
@@ -194,38 +182,39 @@ public final class ModBlocks {
     private ModBlocks() {
     }
 
-    public static List<ConvertedBlock> convertedBlocks() {
-        return Collections.unmodifiableList(CONVERTED_BLOCKS);
+    public static List<MizunoBlockEntry> mizunoBlocks() {
+        return Collections.unmodifiableList(MIZUNO_BLOCKS);
     }
 
     private static DeferredBlock<Block> converted(String name, Block vanillaBlock) {
+        // 普通方块复制原版属性，只替换模型、贴图、掉落与合成。
         DeferredBlock<Block> block = BLOCKS.register(
                 name,
                 () -> new Block(BlockBehaviour.Properties.ofFullCopy(vanillaBlock))
         );
-        registerConversion(name, vanillaBlock, block);
+        registerMizunoBlock(name, vanillaBlock, block);
         return block;
     }
 
     private static DeferredBlock<Block> pillar(String name, Block vanillaBlock) {
+        // 原木、柱子等保留原版轴向状态，避免放置方向丢失。
         DeferredBlock<Block> block = BLOCKS.register(
                 name,
                 () -> new RotatedPillarBlock(BlockBehaviour.Properties.ofFullCopy(vanillaBlock))
         );
-        registerConversion(name, vanillaBlock, block);
+        registerMizunoBlock(name, vanillaBlock, block);
         return block;
     }
 
-    private static void registerConversion(String name, Block vanillaBlock, DeferredBlock<Block> block) {
+    private static void registerMizunoBlock(String name, Block vanillaBlock, DeferredBlock<Block> block) {
         blockItem(name, block);
-        CONVERSIONS.put(vanillaBlock, block);
-        CONVERTED_BLOCKS.add(new ConvertedBlock(name, vanillaBlock, block));
+        MIZUNO_BLOCKS.add(new MizunoBlockEntry(name, vanillaBlock, block));
     }
 
     private static <T extends Block> DeferredItem<BlockItem> blockItem(String name, Supplier<T> block) {
-        return ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
-    public record ConvertedBlock(String name, Block input, Supplier<? extends Block> output) {
+    public record MizunoBlockEntry(String name, Block input, Supplier<? extends Block> output) {
     }
 }

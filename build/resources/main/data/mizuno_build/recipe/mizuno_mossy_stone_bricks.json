@@ -1,0 +1,16 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:mossy_stone_bricks"
+                        },
+                        {
+                            "item":  "mizuno_build:mizuno_element"
+                        }
+                    ],
+    "category":  "building",
+    "result":  {
+                   "count":  1,
+                   "id":  "mizuno_build:mizuno_mossy_stone_bricks"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

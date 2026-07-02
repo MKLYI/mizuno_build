@@ -1,8 +1,6 @@
 {
-    "block.mizuno_build.mizuno_workshop":  "水野工坊",
-    "container.mizuno_workshop":  "水野工坊",
     "itemGroup.mizuno_build":  "水野建筑",
-    "jei.mizuno_build.mizuno_workshop":  "水野工坊",
+    "item.mizuno_build.mizuno_element":  "Mizuno 元素",
     "block.mizuno_build.mizuno_stone":  "Mizuno 石头",
     "block.mizuno_build.mizuno_granite":  "Mizuno 花岗岩",
     "block.mizuno_build.mizuno_polished_granite":  "Mizuno 磨制花岗岩",

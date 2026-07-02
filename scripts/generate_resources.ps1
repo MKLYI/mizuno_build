@@ -3,7 +3,14 @@ $ErrorActionPreference = 'Stop'
 $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $resources = Join-Path $projectRoot 'src/main/resources'
 $javaFile = Join-Path $projectRoot 'src/main/java/com/ligrk/mizunoworkshop/registry/ModBlocks.java'
-$sourceTextures = (Resolve-Path (Join-Path $projectRoot '../水野工艺/assets/minecraft/textures/block')).Path
+$sourcePack = Get-ChildItem -Path (Join-Path $projectRoot '..') -Directory |
+    Where-Object { Test-Path (Join-Path $_.FullName 'assets/minecraft/textures/block') } |
+    Select-Object -First 1
+if ($null -eq $sourcePack) {
+    throw 'Missing source resource pack: assets/minecraft/textures/block'
+}
+$sourceTextures = (Resolve-Path (Join-Path $sourcePack.FullName 'assets/minecraft/textures/block')).Path
+$sourceItemTextures = (Resolve-Path (Join-Path $sourcePack.FullName 'assets/minecraft/textures/item')).Path
 
 $assetRoot = Join-Path $resources 'assets/mizuno_build'
 $dataRoot = Join-Path $resources 'data/mizuno_build'
@@ -19,10 +26,23 @@ if (Test-Path $oldData) { Remove-Item -Path $oldData -Recurse -Force }
     "$assetRoot/models/block",
     "$assetRoot/models/item",
     "$assetRoot/textures/block",
-    "$assetRoot/textures/gui/container",
+    "$assetRoot/textures/item",
     "$dataRoot/recipe",
     "$dataRoot/loot_table/blocks"
-) | ForEach-Object { [System.IO.Directory]::CreateDirectory($_) | Out-Null }
+) | ForEach-Object { New-Item -ItemType Directory -Path $_ -Force | Out-Null }
+
+@(
+    "$assetRoot/blockstates/mizuno_workshop.json",
+    "$assetRoot/models/block/mizuno_workshop.json",
+    "$assetRoot/models/item/mizuno_workshop.json",
+    "$assetRoot/textures/gui/container/mizuno_workshop.png",
+    "$dataRoot/loot_table/blocks/mizuno_workshop.json",
+    "$dataRoot/recipe/mizuno_workshop.json"
+) | ForEach-Object {
+    if (Test-Path $_) {
+        Remove-Item -LiteralPath $_ -Force
+    }
+}
 
 function Write-Utf8NoBom($Path, $Text) {
     $encoding = [System.Text.UTF8Encoding]::new($false)
@@ -46,133 +66,38 @@ function Copy-Texture($Name) {
     }
 }
 
-$zhFull = @{
-    stone = '石头'
-    granite = '花岗岩'
-    polished_granite = '磨制花岗岩'
-    diorite = '闪长岩'
-    polished_diorite = '磨制闪长岩'
-    andesite = '安山岩'
-    polished_andesite = '磨制安山岩'
-    cobblestone = '圆石'
-    mossy_cobblestone = '苔石'
-    stone_bricks = '石砖'
-    mossy_stone_bricks = '苔石砖'
-    cracked_stone_bricks = '裂纹石砖'
-    chiseled_stone_bricks = '錾制石砖'
-    deepslate = '深板岩'
-    cobbled_deepslate = '深板岩圆石'
-    polished_deepslate = '磨制深板岩'
-    deepslate_bricks = '深板岩砖'
-    cracked_deepslate_bricks = '裂纹深板岩砖'
-    deepslate_tiles = '深板岩瓦'
-    cracked_deepslate_tiles = '裂纹深板岩瓦'
-    chiseled_deepslate = '錾制深板岩'
-    tuff = '凝灰岩'
-    calcite = '方解石'
-    bricks = '红砖块'
-    mud_bricks = '泥砖'
-    packed_mud = '泥坯'
-    sandstone = '砂岩'
-    cut_sandstone = '切制砂岩'
-    chiseled_sandstone = '錾制砂岩'
-    red_sandstone = '红砂岩'
-    cut_red_sandstone = '切制红砂岩'
-    chiseled_red_sandstone = '錾制红砂岩'
-    prismarine = '海晶石'
-    prismarine_bricks = '海晶石砖'
-    dark_prismarine = '暗海晶石'
-    netherrack = '下界岩'
-    nether_bricks = '下界砖块'
-    red_nether_bricks = '红色下界砖块'
-    cracked_nether_bricks = '裂纹下界砖块'
-    chiseled_nether_bricks = '錾制下界砖块'
-    blackstone = '黑石'
-    polished_blackstone = '磨制黑石'
-    polished_blackstone_bricks = '磨制黑石砖'
-    cracked_polished_blackstone_bricks = '裂纹磨制黑石砖'
-    chiseled_polished_blackstone = '錾制磨制黑石'
-    end_stone = '末地石'
-    end_stone_bricks = '末地石砖'
-    purpur_block = '紫珀块'
-    purpur_pillar = '紫珀柱'
-    quartz_block = '石英块'
-    chiseled_quartz_block = '錾制石英块'
-    quartz_bricks = '石英砖'
-    quartz_pillar = '石英柱'
-    oak_planks = '橡木木板'
-    spruce_planks = '云杉木板'
-    birch_planks = '白桦木板'
-    jungle_planks = '丛林木板'
-    acacia_planks = '金合欢木板'
-    dark_oak_planks = '深色橡木木板'
-    mangrove_planks = '红树木板'
-    cherry_planks = '樱花木板'
-    bamboo_planks = '竹板'
-    bamboo_mosaic = '竹马赛克'
-    crimson_planks = '绯红木板'
-    warped_planks = '诡异木板'
-    oak_log = '橡木原木'
-    spruce_log = '云杉原木'
-    birch_log = '白桦原木'
-    jungle_log = '丛林原木'
-    acacia_log = '金合欢原木'
-    dark_oak_log = '深色橡木原木'
-    mangrove_log = '红树原木'
-    cherry_log = '樱花原木'
-    crimson_stem = '绯红菌柄'
-    warped_stem = '诡异菌柄'
-    bamboo_block = '竹块'
-    terracotta = '陶瓦'
-    glass = '玻璃'
-    coal_block = '煤炭块'
-    iron_block = '铁块'
-    gold_block = '金块'
-    copper_block = '铜块'
-    exposed_copper = '斑驳的铜块'
-    weathered_copper = '锈蚀的铜块'
-    oxidized_copper = '氧化的铜块'
-    cut_copper = '切制铜块'
-    diamond_block = '钻石块'
-    emerald_block = '绿宝石块'
-    lapis_block = '青金石块'
-    redstone_block = '红石块'
-    amethyst_block = '紫水晶块'
-    raw_iron_block = '粗铁块'
-    raw_gold_block = '粗金块'
-    raw_copper_block = '粗铜块'
-}
-
-$colorZh = @{
-    white = '白色'
-    light_gray = '淡灰色'
-    gray = '灰色'
-    black = '黑色'
-    brown = '棕色'
-    red = '红色'
-    orange = '橙色'
-    yellow = '黄色'
-    lime = '黄绿色'
-    green = '绿色'
-    cyan = '青色'
-    light_blue = '淡蓝色'
-    blue = '蓝色'
-    purple = '紫色'
-    magenta = '品红色'
-    pink = '粉红色'
-}
-
-function Get-ZhName($BaseName) {
-    if ($zhFull.ContainsKey($BaseName)) {
-        return $zhFull[$BaseName]
+function Write-MizunoElementTexture {
+    $src = Join-Path $sourceItemTextures 'experience_bottle.png'
+    if (-not (Test-Path $src)) {
+        throw 'Missing texture: experience_bottle.png'
     }
-    foreach ($color in $colorZh.Keys) {
-        if ($BaseName -eq "${color}_terracotta") { return "$($colorZh[$color])陶瓦" }
-        if ($BaseName -eq "${color}_concrete") { return "$($colorZh[$color])混凝土" }
-        if ($BaseName -eq "${color}_wool") { return "$($colorZh[$color])羊毛" }
-        if ($BaseName -eq "${color}_stained_glass") { return "$($colorZh[$color])染色玻璃" }
+
+    $dst = Join-Path $assetRoot 'textures/item/mizuno_element.png'
+    Add-Type -AssemblyName System.Drawing
+    $bitmap = [System.Drawing.Bitmap]::new($src)
+    try {
+        for ($y = 0; $y -lt $bitmap.Height; $y++) {
+            for ($x = 0; $x -lt $bitmap.Width; $x++) {
+                $pixel = $bitmap.GetPixel($x, $y)
+                if ($pixel.A -eq 0) {
+                    continue
+                }
+
+                $greenDominant = $pixel.G -gt 80 -and $pixel.G -ge $pixel.B + 18 -and $pixel.G -ge $pixel.R - 20
+                $yellowGreen = $pixel.R -gt 80 -and $pixel.G -gt 90 -and $pixel.B -lt 90
+                if ($greenDominant -or $yellowGreen) {
+                    $brightness = [Math]::Max($pixel.R, [Math]::Max($pixel.G, $pixel.B))
+                    $red = [Math]::Min(255, [int]($brightness * 0.48))
+                    $green = [Math]::Min(255, [int]($brightness * 0.88))
+                    $blue = [Math]::Min(255, [int]($brightness * 1.12 + 20))
+                    $bitmap.SetPixel($x, $y, [System.Drawing.Color]::FromArgb($pixel.A, $red, $green, $blue))
+                }
+            }
+        }
+        $bitmap.Save($dst, [System.Drawing.Imaging.ImageFormat]::Png)
+    } finally {
+        $bitmap.Dispose()
     }
-    return (($BaseName -replace '_', ' ') -replace '\b(\w)', { param($m) $m.Value.ToUpper() })
 }
 
 $special = @{
@@ -197,37 +122,46 @@ foreach ($stem in @('crimson', 'warped')) {
 }
 
 $java = Get-Content -Raw -Path $javaFile
-$matches = [regex]::Matches($java, '(?:converted|pillar)\("([^"]+)",\s*Blocks\.([A-Z0-9_]+)\)')
+$matches = [regex]::Matches($java, '(converted|pillar)\("([^"]+)",\s*Blocks\.([A-Z0-9_]+)\)')
 $blocks = @()
 foreach ($match in $matches) {
-    $id = $match.Groups[1].Value
+    $kind = $match.Groups[1].Value
+    $id = $match.Groups[2].Value
     $base = $id -replace '^mizuno_', ''
-    $blocks += [pscustomobject]@{ id = $id; base = $base }
+    $vanillaId = $match.Groups[3].Value.ToLowerInvariant()
+    $blocks += [pscustomobject]@{ id = $id; base = $base; vanilla = $vanillaId; isPillar = ($kind -eq 'pillar') }
 }
 
-Copy-Item -Path (Join-Path $projectRoot '../水野工艺/assets/minecraft/textures/gui/container/stonecutter.png') -Destination (Join-Path $assetRoot 'textures/gui/container/mizuno_workshop.png') -Force
-
-$langEn = [ordered]@{
-    'block.mizuno_build.mizuno_workshop' = 'Mizuno Workshop'
-    'container.mizuno_workshop' = 'Mizuno Workshop'
-    'itemGroup.mizuno_build' = 'Mizuno Build'
-    'jei.mizuno_build.mizuno_workshop' = 'Mizuno Workshop'
-}
-$langZh = [ordered]@{
-    'block.mizuno_build.mizuno_workshop' = '水野工坊'
-    'container.mizuno_workshop' = '水野工坊'
-    'itemGroup.mizuno_build' = '水野建筑'
-    'jei.mizuno_build.mizuno_workshop' = '水野工坊'
-}
-
-$workshopBlockstate = @{
-    variants = @{
-        '' = @{ model = 'mizuno_build:block/mizuno_workshop' }
+$existingZhPath = Join-Path $assetRoot 'lang/zh_cn.json'
+$existingZh = @{}
+if (Test-Path $existingZhPath) {
+    $existingZhObject = Get-Content -Raw -Encoding UTF8 -Path $existingZhPath | ConvertFrom-Json
+    foreach ($property in $existingZhObject.PSObject.Properties) {
+        $existingZh[$property.Name] = $property.Value
     }
 }
-Write-Utf8NoBom (Join-Path $assetRoot 'blockstates/mizuno_workshop.json') (To-JsonText $workshopBlockstate)
-Write-Utf8NoBom (Join-Path $assetRoot 'models/block/mizuno_workshop.json') (To-JsonText @{ parent = 'minecraft:block/stonecutter' })
-Write-Utf8NoBom (Join-Path $assetRoot 'models/item/mizuno_workshop.json') (To-JsonText @{ parent = 'mizuno_build:block/mizuno_workshop' })
+
+$zhItemGroup = if ($existingZh.ContainsKey('itemGroup.mizuno_build')) {
+    $existingZh['itemGroup.mizuno_build']
+} else {
+    'Mizuno Build'
+}
+$zhElementName = -join ([char[]](77, 105, 122, 117, 110, 111, 32, 20803, 32032))
+
+$langEn = [ordered]@{
+    'itemGroup.mizuno_build' = 'Mizuno Build'
+    'item.mizuno_build.mizuno_element' = 'Mizuno Element'
+}
+$langZh = [ordered]@{
+    'itemGroup.mizuno_build' = $zhItemGroup
+    'item.mizuno_build.mizuno_element' = $zhElementName
+}
+
+Write-MizunoElementTexture
+Write-Utf8NoBom (Join-Path $assetRoot 'models/item/mizuno_element.json') (To-JsonText @{
+    parent = 'minecraft:item/generated'
+    textures = @{ layer0 = 'mizuno_build:item/mizuno_element' }
+})
 
 $loot = {
     param($ItemId)
@@ -243,22 +177,20 @@ $loot = {
     }
 }
 
-Write-Utf8NoBom (Join-Path $dataRoot 'loot_table/blocks/mizuno_workshop.json') (To-JsonText (& $loot 'mizuno_build:mizuno_workshop'))
-Write-Utf8NoBom (Join-Path $dataRoot 'recipe/mizuno_workshop.json') (To-JsonText @{
-    type = 'minecraft:crafting_shaped'
-    category = 'decorations'
-    pattern = @(' I ', 'SCS', 'SSS')
-    key = @{
-        I = 'minecraft:iron_ingot'
-        S = 'minecraft:stone'
-        C = 'minecraft:stonecutter'
-    }
-    result = @{ id = 'mizuno_build:mizuno_workshop' }
+Write-Utf8NoBom (Join-Path $dataRoot 'recipe/mizuno_element.json') (To-JsonText @{
+    type = 'minecraft:crafting_shapeless'
+    category = 'misc'
+    ingredients = @(
+        @{ item = 'minecraft:cobblestone' },
+        @{ item = 'minecraft:cobblestone' }
+    )
+    result = @{ count = 1; id = 'mizuno_build:mizuno_element' }
 })
 
 foreach ($block in $blocks) {
     $id = $block.id
     $baseName = $block.base
+    $vanillaId = $block.vanilla
     $modelName = "mizuno_build:block/$id"
 
     if ($special.ContainsKey($baseName)) {
@@ -283,13 +215,15 @@ foreach ($block in $blocks) {
                     end = "mizuno_build:block/$($info.top)"
                 }
             }
-            Write-Utf8NoBom (Join-Path $assetRoot "blockstates/$id.json") (To-JsonText @{
-                variants = @{
-                    'axis=y' = @{ model = $modelName }
-                    'axis=x' = @{ model = $modelName; x = 90; y = 90 }
-                    'axis=z' = @{ model = $modelName; x = 90 }
-                }
-            })
+            if ($block.isPillar) {
+                Write-Utf8NoBom (Join-Path $assetRoot "blockstates/$id.json") (To-JsonText @{
+                    variants = @{
+                        'axis=y' = @{ model = $modelName }
+                        'axis=x' = @{ model = $modelName; x = 90; y = 90 }
+                        'axis=z' = @{ model = $modelName; x = 90 }
+                    }
+                })
+            }
         }
     } else {
         Copy-Texture $baseName
@@ -299,7 +233,11 @@ foreach ($block in $blocks) {
         }
     }
 
-    if (-not ($special.ContainsKey($baseName) -and $special[$baseName].type -eq 'column')) {
+    if ($baseName -eq 'glass' -or $baseName.EndsWith('_stained_glass')) {
+        $model.render_type = 'minecraft:translucent'
+    }
+
+    if (-not $block.isPillar) {
         Write-Utf8NoBom (Join-Path $assetRoot "blockstates/$id.json") (To-JsonText @{
             variants = @{
                 '' = @{ model = $modelName }
@@ -310,13 +248,27 @@ foreach ($block in $blocks) {
     Write-Utf8NoBom (Join-Path $assetRoot "models/block/$id.json") (To-JsonText $model)
     Write-Utf8NoBom (Join-Path $assetRoot "models/item/$id.json") (To-JsonText @{ parent = $modelName })
     Write-Utf8NoBom (Join-Path $dataRoot "loot_table/blocks/$id.json") (To-JsonText (& $loot "mizuno_build:$id"))
+    Write-Utf8NoBom (Join-Path $dataRoot "recipe/$id.json") (To-JsonText @{
+        type = 'minecraft:crafting_shapeless'
+        category = 'building'
+        ingredients = @(
+            @{ item = "minecraft:$vanillaId" },
+            @{ item = 'mizuno_build:mizuno_element' }
+        )
+        result = @{ count = 1; id = "mizuno_build:$id" }
+    })
 
     $englishBase = (Get-Culture).TextInfo.ToTitleCase(($baseName -replace '_', ' '))
     $langEn["block.mizuno_build.$id"] = "Mizuno $englishBase"
-    $langZh["block.mizuno_build.$id"] = "Mizuno $(Get-ZhName $baseName)"
+    $zhKey = "block.mizuno_build.$id"
+    if ($existingZh.ContainsKey($zhKey)) {
+        $langZh[$zhKey] = $existingZh[$zhKey]
+    } else {
+        $langZh[$zhKey] = "Mizuno $englishBase"
+    }
 }
 
 Write-Utf8NoBom (Join-Path $assetRoot 'lang/en_us.json') (To-JsonText $langEn)
 Write-Utf8NoBom (Join-Path $assetRoot 'lang/zh_cn.json') (To-JsonText $langZh)
 
-Write-Host "Generated $($blocks.Count) converted block resource sets."
+Write-Host "Generated $($blocks.Count) Mizuno block resource sets."

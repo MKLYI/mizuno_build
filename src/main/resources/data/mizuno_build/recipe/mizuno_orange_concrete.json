@@ -1,0 +1,16 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:orange_concrete"
+                        },
+                        {
+                            "item":  "mizuno_build:mizuno_element"
+                        }
+                    ],
+    "category":  "building",
+    "result":  {
+                   "count":  1,
+                   "id":  "mizuno_build:mizuno_orange_concrete"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

@@ -1,8 +1,6 @@
 {
-    "block.mizuno_build.mizuno_workshop":  "Mizuno Workshop",
-    "container.mizuno_workshop":  "Mizuno Workshop",
     "itemGroup.mizuno_build":  "Mizuno Build",
-    "jei.mizuno_build.mizuno_workshop":  "Mizuno Workshop",
+    "item.mizuno_build.mizuno_element":  "Mizuno Element",
     "block.mizuno_build.mizuno_stone":  "Mizuno Stone",
     "block.mizuno_build.mizuno_granite":  "Mizuno Granite",
     "block.mizuno_build.mizuno_polished_granite":  "Mizuno Polished Granite",

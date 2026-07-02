@@ -1,0 +1,16 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:lime_terracotta"
+                        },
+                        {
+                            "item":  "mizuno_build:mizuno_element"
+                        }
+                    ],
+    "category":  "building",
+    "result":  {
+                   "count":  1,
+                   "id":  "mizuno_build:mizuno_lime_terracotta"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

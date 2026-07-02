@@ -2,7 +2,7 @@ package com.ligrk.mizunoworkshop;
 
 import com.ligrk.mizunoworkshop.registry.ModBlocks;
 import com.ligrk.mizunoworkshop.registry.ModCreativeTabs;
-import com.ligrk.mizunoworkshop.registry.ModMenus;
+import com.ligrk.mizunoworkshop.registry.ModItems;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
@@ -12,8 +12,7 @@ public final class MizunoWorkshop {
 
     public MizunoWorkshop(IEventBus modEventBus) {
         ModBlocks.BLOCKS.register(modEventBus);
-        ModBlocks.ITEMS.register(modEventBus);
-        ModMenus.MENUS.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
         ModCreativeTabs.CREATIVE_MODE_TABS.register(modEventBus);
     }
 }

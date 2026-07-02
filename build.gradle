@@ -38,14 +38,6 @@ neoForge {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-repositories {
-    maven { url = 'https://maven.blamejared.com' }
-}
-
-dependencies {
-    compileOnly "mezz.jei:jei-1.21.1-neoforge-api:19.27.0.343"
-}
-
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version      : minecraft_version,

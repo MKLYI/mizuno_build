@@ -1,0 +1,16 @@
+{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:chiseled_red_sandstone"
+                        },
+                        {
+                            "item":  "mizuno_build:mizuno_element"
+                        }
+                    ],
+    "category":  "building",
+    "result":  {
+                   "count":  1,
+                   "id":  "mizuno_build:mizuno_chiseled_red_sandstone"
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

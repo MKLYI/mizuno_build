@@ -11,13 +11,13 @@ public final class ModCreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MizunoWorkshop.MOD_ID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MIZUNO_WORKSHOP_TAB =
-            CREATIVE_MODE_TABS.register("mizuno_workshop", () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MIZUNO_BUILD_TAB =
+            CREATIVE_MODE_TABS.register("mizuno_build", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.mizuno_build"))
-                    .icon(() -> ModBlocks.MIZUNO_WORKSHOP_ITEM.get().getDefaultInstance())
+                    .icon(() -> ModItems.MIZUNO_ELEMENT.get().getDefaultInstance())
                     .displayItems((parameters, output) -> {
-                        output.accept(ModBlocks.MIZUNO_WORKSHOP_ITEM.get());
-                        ModBlocks.convertedBlocks().forEach(block -> output.accept(block.output().get()));
+                        output.accept(ModItems.MIZUNO_ELEMENT.get());
+                        ModBlocks.mizunoBlocks().forEach(block -> output.accept(block.output().get()));
                     })
                     .build());
 

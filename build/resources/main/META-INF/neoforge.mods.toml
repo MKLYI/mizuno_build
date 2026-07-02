@@ -22,10 +22,3 @@ type = "required"
 versionRange = "[1.21.1,1.21.2)"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.mizuno_build]]
-modId = "jei"
-type = "optional"
-versionRange = "[19.0.0,)"
-ordering = "AFTER"
-side = "BOTH"

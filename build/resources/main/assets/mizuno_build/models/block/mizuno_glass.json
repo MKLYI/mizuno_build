@@ -1,6 +1,7 @@
 {
+    "render_type":  "minecraft:translucent",
+    "parent":  "minecraft:block/cube_all",
     "textures":  {
                      "all":  "mizuno_build:block/glass"
-                 },
-    "parent":  "minecraft:block/cube_all"
+                 }
 }
